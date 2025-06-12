@@ -1,4 +1,3 @@
-
 services:
   db:
     image: mysql:5.7
@@ -6,23 +5,23 @@ services:
       - db_data:/var/lib/mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: rootpass
-      MYSQL_DATABASE: wordpress
-      MYSQL_USER: wp_user
-      MYSQL_PASSWORD: wp_pass
+      MYSQL_ROOT_PASSWORD: exemple_root
+      MYSQL_DATABASE: exemple_db
+      MYSQL_USER: exemple_user
+      MYSQL_PASSWORD: exemple_pwd
 
   wordpress:
     image: wordpress:latest
-    ports:
-      - "8000:80"
-    restart: always
     depends_on:
-      - db
+      - db  # le service WordPress attend que MySQL soit prêt
+    ports:
+      - "8000:80"  # permet d'accéder à WordPress via localhost:8000
+    restart: always
     environment:
       WORDPRESS_DB_HOST: db:3306
-      WORDPRESS_DB_USER: wp_user
-      WORDPRESS_DB_PASSWORD: wp_pass
-      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_NAME: exemple_db
+      WORDPRESS_DB_USER: exemple_user
+      WORDPRESS_DB_PASSWORD: exemple_pwd
 
 volumes:
-  db_data:
+  db_data:  # volume pour stocker les données MySQL
