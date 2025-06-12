@@ -1,8 +1,8 @@
 services:
   db:
-    image: mysql:5.7
+    image: mysql:5.7 
     volumes:
-      - db_data:/var/lib/mysql
+      - db_data:/var/lib/mysql  # volume pour stocker les données MySQL
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: exemple_root
@@ -11,7 +11,7 @@ services:
       MYSQL_PASSWORD: exemple_pwd
 
   wordpress:
-    image: wordpress:latest
+    image: wordpress:latest # utilisation de l'image officielle de WordPress
     depends_on:
       - db  # le service WordPress attend que MySQL soit prêt
     ports:
